@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-This tutorial will use an example PPG time series to demonstrate the PulseWaveform pipeline for PPG feature extraction and running of the Hybrid Excess and Decay (HED) model (see the [ReadMe](https://github.com/stw32/PulseWaveform) for an introduction to the model and pipeline). The sample data is a two-minute segment of raw data outputted by a BioRadio device at 75 Hz, recorded during rest. 
+This tutorial will use a sample PPG time series to demonstrate the PulseWaveform pipeline for PPG feature extraction and running of the Hybrid Excess and Decay (HED) model (see the [ReadMe](https://github.com/stw32/PulseWaveform) for an introduction to the model and pipeline). The sample data is a two-minute segment of raw data outputted by a BioRadio device at 75 Hz, recorded during rest. 
 
 # Initial setup
 
@@ -23,7 +23,7 @@ devtools::install_github(repo = 'stw32/PulseWaveform')
 
 ### Load required packages:
 
-These packages may need to be installed first.
+These packages will need to be installed first. All are available on [CRAN](https://cran.r-project.org) and can be installed with install.packages(), other than SplinesUtils which is available [here](https://github.com/ZheyuanLi/SplinesUtils). 
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -82,7 +82,7 @@ AllOutputs <- list()
 
 # Preprocessing
 
-First duplicates are removed from the data, and the undetrending algorithm inherent to Bioradio hardware is reversed. The raw data is assigned to a dataframe 'ppg', and an initial attempt at detecting peaks in the first derivative is made (to be refined later). 
+First duplicate data points are removed from the data, and the undetrending algorithm inherent to Bioradio hardware is reversed. The raw data is assigned to a dataframe 'ppg', and an initial attempt at detecting peaks in the first derivative is made (to be refined later). 
 
 ```{r}
 undetrended_data <- data.frame(preproc(dat=data))                                                  
@@ -460,11 +460,11 @@ The key to the output list is as follows:
 
 # Exploring Outputs
 
-Once the pipeline has run, outputs can be examined in a number of ways. Below of some examples of visualisations that may be of interest. Outputs that prove to be informative could also be used as the basis for classification models. 
+Once the pipeline has run, outputs can be examined in a number of ways. Below are some examples of visualisations that may be of interest. Outputs that prove to be informative could also be used as the basis for classification models. 
 
 ### Interbeat intervals
 
-An interbeat interval time series is shown with the following plot. Note that due to cleaning and removal of waveforms, caution should be taken when interpreting: intervals are not necessarily. Nonetheless, an approximation to heart rate variability across the time series can be extracted by taking the standard deviation of interbeat intervals (akin to SDNN) after removal of outliers. 
+An interbeat interval time series is shown with the following plot. Note that due to cleaning and removal of waveforms, caution should be taken when interpreting: intervals are not necessarily between consecutive waveforms in all cases. Nonetheless, an approximation to heart rate variability across the time series can be extracted by taking the standard deviation of interbeat intervals (akin to SDNN) after removal of outliers (i.e. implausibly long intervals). 
 
 
 ```{r}
