@@ -385,7 +385,7 @@ library(PulseWaveform)</code></pre>
 pk_thrshd &lt;- 0.8                    
 plot_aligned_waves &lt;- TRUE      
 plot_osnd &lt;- TRUE    </code></pre>
-<p>Following this we will select parameters for running the model. For this tutorial we will run the model with the recommended number of simplex iterations (20000). If all beats in the sample are to be modelled (recommended as default), ‘all_beats’ should be set to FALSE. For the purposes of this example we will run only a subset as defined by the ‘batch_number’ and ‘beats_in’ parameters.</p>
+<p>Following this we will select parameters for running the model. For this tutorial we will run the model with the recommended number of simplex iterations (20000). If all beats in the sample are to be modelled (recommended as default), ‘all_beats’ should be set to TRUE. For the purposes of this example we will run only a subset as defined by the ‘batch_number’ and ‘beats_in’ parameters.</p>
 <p>‘beats_in’ defines the number of beats to be optimised with some shared parameters (see <a href="https://github.com/stw32/PulseWaveform">ReadMe</a>). It is effectively a way to alter the trade-off between consistency of model fits (and therefore robustness) vs goodness of fit. In this case we will set it to 2, meaning that beats will be modelled in groups of two with shared parameters within pairs. ‘batch_number’ defines the number of groups of beats to model. We will set it to 6 here, meaning that 6x2 (12) waves will be modelled in total.</p>
 <pre class="r"><code>run_hed &lt;- TRUE                     
 simplex_iterations &lt;- 20000        
